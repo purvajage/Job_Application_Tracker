@@ -10,4 +10,6 @@ app.use(bodyParser.json());
 app.get("/",(req,res)=>{
     res.send("welcome to job application tracket API");
 });
+const applicationRoutes=require("../src/Routes/applicationRoutes");
+app.use('/applications',applicationRoutes);
 module.exports=app;
