@@ -18,7 +18,7 @@ The **Job Application Tracker** is a full-stack application built with **Node.js
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/job-application-tracker.git
+   git clone https://github.com/purvajage/Job_Application_Tracker.git
    cd job-application-tracker
    ```
 
