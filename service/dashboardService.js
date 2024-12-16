@@ -1,4 +1,4 @@
-const Application = require('../models/applicationModel');
+const Application = require('../model/applicationModel');
 const moment = require('moment'); // To handle date formatting and date ranges
 
 // Function to fetch dashboard statistics

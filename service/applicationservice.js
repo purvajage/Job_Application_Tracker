@@ -1,4 +1,4 @@
-const Application = require('../models/applicationModel');
+const Application = require('../model/applicationModel');
 
 exports.getApplications = async (userId, queryParams) => {
     const { status, companyName, position, startDate, endDate } = queryParams;

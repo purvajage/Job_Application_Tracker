@@ -1,4 +1,4 @@
-const { getApplications, createApplication, updateApplication, deleteApplication } = require('../services/applicationService');
+const { getApplications, createApplication, updateApplication, deleteApplication } = require('../service/applicationservice');
 
 exports.getApplications = async (req, res) => {
     try {
