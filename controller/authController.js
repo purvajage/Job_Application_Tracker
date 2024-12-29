@@ -2,39 +2,33 @@ const { registerUser, loginUser } = require("../service/authservice");
 
 exports.register = async (req, res) => {
     try {
-        // Call the register service to create a new user
         const user = await registerUser(req.body);
-
-        // Respond with success
         res.status(201).json({
+            success: true,
             message: "User registered successfully",
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-            },
+            user,
         });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json({
+            success: false,
+            message: error.message,
+        });
     }
 };
 
 exports.login = async (req, res) => {
     try {
-        // Call the login service to authenticate the user
         const { token, user } = await loginUser(req.body);
-
-        // Respond with token and user details
         res.status(200).json({
+            success: true,
             message: "Login successful",
             token,
-            user: {
-                id: user._id,
-                name: user.name,
-                email: user.email,
-            },
+            user,
         });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json({
+            success: false,
+            message: error.message,
+        });
     }
 };

@@ -1,72 +1,45 @@
-const bcrypt = require('bcrypt');
-const User = require('../model/userModel'); // Adjust the path as per your project structure
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const User = require("../model/userModel");
 
-// Register User Service
-exports.registerUser = async (userData) => {
-    const { name, email, password } = userData;
-
+exports.registerUser = async ({ name, email, password }) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
         throw new Error("User already exists");
     }
 
-    // Hash the password
-    try {
-        const salt = await bcrypt.genSalt(10); // Generate salt for hashing
-        const hashedPassword = await bcrypt.hash(password, salt); // Hash password
-        console.log("Hashed password generated:", hashedPassword);
+    // Create a new user
+    const user = new User({ name, email, password });
+    await user.save();
 
-        // Create and save the user
-        const newUser = new User({
-            name,
-            email,
-            password: hashedPassword, // Save the hashed password
-        });
-
-        return await newUser.save();
-    } catch (error) {
-        console.error("Error while hashing password:", error.message);
-        throw new Error("Failed to hash password during registration");
-    }
+    // Remove password before returning
+    user.password = undefined;
+    return user;
 };
 
-const jwt = require('jsonwebtoken');
- // Adjust the path as per your project structure
-
 // Login User Service
-exports.loginUser = async (userData) => {
-    const { email, password } = userData;
-
-    // Step 1: Find the user
+exports.loginUser = async ({ email, password }) => {
+    // Find user by email
     const user = await User.findOne({ email });
-    console.log("User found in DB:", user);
-
+    
     if (!user) {
         throw new Error("Invalid credentials: User not found");
     }
 
-    // Step 2: Compare passwords
-    try {
-        console.log("Password provided:", password); // Log the provided password
-        console.log("Password in DB:", user.password); // Log the hashed password from DB
-
-        // Compare the passwords
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        console.log("Is password valid:", isPasswordValid);
-
-        if (!isPasswordValid) {
-            throw new Error("Invalid credentials: Incorrect password");
-        }
-
-        // Step 3: Return user and token
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: '1d', // Token valid for 1 day
-        });
-
-        return { token, user };
-    } catch (error) {
-        console.error("Error while comparing passwords:", error.message);
-        throw new Error("Failed to validate password during login");
+    // Compare passwords
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+        throw new Error("Invalid credentials: Incorrect password");
     }
+
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
+    });
+
+    // Remove password before returning
+    user.password = undefined;
+    console.log("User found: ", user);
+    return { token, user };
 };
