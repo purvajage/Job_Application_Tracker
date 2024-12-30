@@ -19,27 +19,30 @@ exports.registerUser = async ({ name, email, password }) => {
 };
 
 
+
 exports.loginUser = async ({ email, password }) => {
-   
-    const user = await User.findOne({ email });
+    console.log("Login email:", email); // Debugging log
+
+    // Find user by email (case-insensitive)
+    const user = await User.findOne({ email: { $regex: new RegExp(`^${email}$`, 'i') } });
     
     if (!user) {
+        console.error("User not found in the database");
         throw new Error("Invalid credentials: User not found");
     }
 
-  
+    // Validate password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
+        console.error("Incorrect password provided");
         throw new Error("Invalid credentials: Incorrect password");
     }
 
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: "1d",
-    });
-
-
+    // Remove password before returning user data
     user.password = undefined;
-    console.log("User found: ", user);
+    console.log("User found:", user); // Debugging log
     return { token, user };
 };

@@ -37,13 +37,35 @@ exports.createApplication = async (data, userId) => {
     return savedApplication;
 };
 
-exports.updateApplication = async (id, data) => {
-    const application = await Application.findByIdAndUpdate(id, data, { new: true });
 
- 
-    await createNotification(application.user, `Application status updated to "${data.status}"`);
-    return application;
+
+exports.updateApplication = async (req, res) => {
+    try {
+        console.log("Request Params:", req.params); // Debugging
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({ error: "Application ID is missing" });
+        }
+
+        const updatedApplication = await Application.findByIdAndUpdate(
+            id,
+            req.body,
+            { new: true }
+        );
+
+        if (!updatedApplication) {
+            return res.status(404).json({ error: "Application not found" });
+        }
+
+        res.status(200).json(updatedApplication);
+    } catch (error) {
+        console.error("Error updating application:", error.message);
+        res.status(500).json({ error: "Server error. Please try again." });
+    }
 };
+
+
 exports.deleteApplication = async (id) => {
     return await Application.findByIdAndDelete(id);
 };
