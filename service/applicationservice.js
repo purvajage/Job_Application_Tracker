@@ -37,21 +37,19 @@ exports.createApplication = async (data, userId) => {
     return savedApplication;
 };
 
-
-
 exports.updateApplication = async (req, res) => {
     try {
         console.log("Request Params:", req.params); // Debugging
-        const { id } = req.params;
+        const { id } = req.params; // Ensure this matches your route parameter
 
         if (!id) {
             return res.status(400).json({ error: "Application ID is missing" });
         }
 
         const updatedApplication = await Application.findByIdAndUpdate(
-            id,
+            id, // Use the correct parameter here
             req.body,
-            { new: true }
+            { new: true } // Return the updated document
         );
 
         if (!updatedApplication) {
@@ -64,6 +62,8 @@ exports.updateApplication = async (req, res) => {
         res.status(500).json({ error: "Server error. Please try again." });
     }
 };
+
+
 
 
 exports.deleteApplication = async (id) => {
