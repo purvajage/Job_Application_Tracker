@@ -1,5 +1,8 @@
 const Application = require('../model/applicationModel');
 
+
+const { createNotification } = require('../service/notificationservice'); // Correct import path
+
 exports.getApplications = async (userId, queryParams) => {
     const { status, companyName, position, startDate, endDate } = queryParams;
 
@@ -21,7 +24,7 @@ exports.getApplications = async (userId, queryParams) => {
         if (endDate) query.dateApplied.$lte = new Date(endDate);     
     }
 
-    // Fetch applications based on filters
+    
     return await Application.find(query).sort({ dateApplied: -1 }); 
 };
 
@@ -29,7 +32,7 @@ exports.createApplication = async (data, userId) => {
     const application = new Application({ ...data, user: userId });
     const savedApplication = await application.save();
 
-    // Notify the user
+  
     await createNotification(userId, `New application added for ${data.companyName}`);
     return savedApplication;
 };
@@ -37,7 +40,7 @@ exports.createApplication = async (data, userId) => {
 exports.updateApplication = async (id, data) => {
     const application = await Application.findByIdAndUpdate(id, data, { new: true });
 
-    // Notify the user
+ 
     await createNotification(application.user, `Application status updated to "${data.status}"`);
     return application;
 };

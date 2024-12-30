@@ -9,11 +9,11 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.use(authMiddleware); // Authenticate all routes
+router.use(authMiddleware); 
 
-router.get("/", getApplications); // Get all applications for a user
-router.post("/", createApplication); // Create a new application
-router.put("/:id", updateApplication); // Update an application
-router.delete("/:id", deleteApplication); // Delete an application
+router.get("/", getApplications); 
+router.post("/", createApplication); 
+router.put("/:id", updateApplication);
+router.delete("/:id", deleteApplication); 
 
 module.exports = router;
