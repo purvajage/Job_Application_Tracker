@@ -1,5 +1,5 @@
 const { createNotification, getNotifications, markAsRead } = require('../service/notificationservice');
-
+// This file handles notification functionalities such as creating, retrieving, and marking notifications as read
 exports.getNotifications = async (req, res) => {
     try {
         const notifications = await getNotifications(req.user.id);

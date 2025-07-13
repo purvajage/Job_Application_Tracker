@@ -1,5 +1,5 @@
 const { registerUser, loginUser } = require("../service/authservice");
-
+// This file handles user registration and login functionalities
 exports.register = async (req, res) => {
     try {
         const user = await registerUser(req.body);

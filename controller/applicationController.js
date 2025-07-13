@@ -4,7 +4,7 @@ const {
     updateApplication: updateApplicationService,
     deleteApplication: deleteApplicationService,
 } = require("../service/applicationservice");
-
+//for retriving applications, creating, updating, and deleting applications
 exports.getApplications = async (req, res) => {
     try {
         const applications = await getApplicationsService(req.user._id, req.query);
