@@ -1,6 +1,6 @@
 // This file defines the Mongoose schema and model for job applications in the Job Application Tracker application.
 const mongoose = require('mongoose');
-
+// The schema defines the structure of the application documents in the MongoDB database.
 const applicationSchema = new mongoose.Schema({
     companyName: { type: String, required: true },
     position: { type: String, required: true },
