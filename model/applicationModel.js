@@ -1,4 +1,4 @@
-
+// This file defines the Mongoose schema and model for job applications in the Job Application Tracker application.
 const mongoose = require('mongoose');
 
 const applicationSchema = new mongoose.Schema({
