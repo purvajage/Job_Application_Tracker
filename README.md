@@ -24,59 +24,6 @@ A comprehensive Node.js-based backend system designed to manage and track job ap
 
 ---
 
-## Project Structure
-
-```
-job-application-tracker/
-├── src/
-│   ├── config/
-│   │   ├── database.js        # Database connection setup
-│   │   ├── env.js             # Environment variable setup
-│   │   
-│   │
-│   ├── controllers/
-│   │   ├── applicationController.js   # Handles application-related requests
-│   │   ├── authController.js          # Handles user authentication
-│   │   └── notificationController.js  # Handles notification-related tasks
-|   |   └── dashboardController.js     # Handles dashboard-related tasks
-│   │
-│   ├── models/
-│   │   ├── applicationModel.js        # Application schema
-│   │   ├── userModel.js               # User schema
-│   │   └── notificationModel.js       # Notification schema
-|   |   └── dashboardModel.js          # dashboard schema
-|   |   
-│   │
-│   ├── routes/
-│   │   ├── applicationRoutes.js       # Routes for application endpoints
-│   │   ├── authRoutes.js              # Routes for authentication endpoints
-│   │   └── notificationRoutes.js      # Routes for notifications
-|   |   └── dashboardRoutes.js         # Routes for dashboard
-│   │
-│   ├── services/
-│   │   ├── applicationService.js      # Business logic for applications
-│   │   ├── authService.js             # Business logic for authentication
-│   │   └── notificationService.js     # Business logic for notifications
-|   |   └── dashboardService.js        # Business logic for dashboard
-│   │
-│   │
-│   ├── middleware/
-│   │   ├── authMiddleware.js          # Middleware for authentication
-│   │
-│   ├── app.js                         # Main app configuration
-│   ├── server.js                      # Entry point for the application
-│   └── swagger.js                     # Swagger/OpenAPI setup for API documentation
-│
-├── .env                               # Environment variables
-├── Dockerfile                         # Dockerfile for containerization
-├── docker-compose.yml                 # Docker Compose for multi-service setup
-├── package.json                       # Node.js dependencies and scripts
-├── README.md                          # Project documentation
-└── LICENSE                            # License file
-```
-
----
-
 ## Installation and Setup
 
 ### Prerequisites
@@ -118,7 +65,7 @@ job-application-tracker/
 
 ## Testing
 
-- Use **Postman** or **curl** to test the endpoints.
+- Use **Postman** to test the endpoints.
 - Example Postman collection is included in the `tests/` directory.
 
 ---
