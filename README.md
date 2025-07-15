@@ -84,19 +84,4 @@ docker build -t job-tracker-app .
 docker run -p 3000:3000 --env-file .env job-tracker-app
 ```
 
-### Using Docker Compose
-
-```bash
-docker-compose up --build
-```
-
----
-
-
-
----
-
-## License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
 
