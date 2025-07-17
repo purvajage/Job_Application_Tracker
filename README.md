@@ -18,7 +18,7 @@ A comprehensive Node.js-based backend system designed to manage and track job ap
 - **Microservices Architecture**:
   - Separate services for authentication, applications, and notifications.
 - **Database**:
-  - MongoDB for data storage (connected via MongoDB Atlas).
+  - MongoDB for data storage .
 - **Docker Support**:
   - Fully containerized application with multi-service setup using Docker Compose.
 
